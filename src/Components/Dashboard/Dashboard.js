@@ -28,15 +28,32 @@ class Dashboard extends Component{
     })
     }
 
+    deleteHouse = id => {
+        axios.delete(`/api/houses/${id}`)
+        .then(res => {
+            this.getHouses()
+        })
+        .catch(err => console.log("Can't delete house", err))
+    }
+
     render() {
         return (
             <div>
+               <section id='left-block-one'></section>
+                <div id='dashboard-container'>Dashboard
+                <Link to='/Wizard'><button>Add New Property</button></Link>
+                <section id='right-block-one'></section>
+                </div>
+                    <section id='left-block-2'></section>
+                    <div> Home Listings</div>
+                        <div id='home-information-container'>
                 {this.state.houses.map(house => {
                     return (
-                        <House key={house.id} name={house.name} address={house.address} city={house.city} state={house.state} zip={house.zip}/>
+                        <House key={house.id} id={house.id} name={house.name} address={house.address} city={house.city} state={house.state} zip={house.zip} deleteHouse={this.deleteHouse}/>
                     )
                 })}
-                <Link to='/Wizard'><button>Add New Property</button></Link>
+                <section id='right-block-two'></section>
+                </div>
             </div>
             
         )
